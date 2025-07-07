@@ -1,18 +1,15 @@
 FROM openjdk:17-jdk-slim
 WORKDIR /opt/traccar
 
-# Force rebuild: July 7
 # Install system dependencies
 RUN apt-get update && apt-get install -y wget unzip && rm -rf /var/lib/apt/lists/*
 
-# Download and extract tracker-server.jar from .run installer
-RUN wget -O traccar.run https://github.com/traccar/traccar/releases/download/v6.3/traccar-linux-64-6.3.run && \
+# Download and extract tracker-server.jar from Traccar .run installer (v6.5)
+RUN wget -O traccar.run https://github.com/traccar/traccar/releases/download/v6.5/traccar-linux-64-6.5.run && \
     chmod +x traccar.run && \
     ./traccar.run --target /opt/traccar --noexec && \
-    echo "📁 Contents of /opt/traccar after extraction:" && \
-    ls -l /opt/traccar && \
-    echo "🔍 Searching for tracker-server.jar:" && \
-    find /opt/traccar -name "tracker-server.jar" || (echo "❌ tracker-server.jar not found!" && exit 1)
+    mv /opt/traccar/traccar-*/tracker-server.jar /opt/traccar/tracker-server.jar && \
+    test -f /opt/traccar/tracker-server.jar || (echo "❌ tracker-server.jar not found!" && exit 1)
 
 # Create runtime directories and set permissions
 RUN mkdir -p /opt/traccar/conf /opt/traccar/logs /opt/traccar/data && \
