@@ -3,7 +3,9 @@ WORKDIR /
 RUN apt-get update && apt-get install -y wget unzip && rm -rf /var/lib/apt/lists/*
 RUN wget -O traccar.zip https://github.com/traccar/traccar/releases/download/v6.7.3/traccar-linux-64-6.7.3.zip && \
     unzip -o traccar.zip -d /opt/traccar && \
-    find /opt/traccar -type f -name "tracker-server.jar" -exec mv {} /opt/traccar/tracker-server.jar \; && \
+    echo "Listing ZIP contents:" && \
+    find /opt/traccar -type f && \
+    find /opt/traccar -type f -name "*.jar" -exec mv {} /opt/traccar/tracker-server.jar \; || true && \
     test -f /opt/traccar/tracker-server.jar || { echo "Error: tracker-server.jar not found"; exit 1; } && \
     rm -rf traccar.zip /opt/traccar/traccar-*
 RUN mkdir -p /opt/traccar/conf /opt/traccar/logs /opt/traccar/data && \
