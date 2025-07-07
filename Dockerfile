@@ -1,17 +1,13 @@
 FROM openjdk:17-jdk-slim
 WORKDIR /opt/traccar
 
-# Force rebuild by changing ENV value (cache buster)
-ENV CACHE_BREAKER=2025-07-07-10-15
-
 # Install system dependencies
 RUN apt-get update && apt-get install -y wget unzip && rm -rf /var/lib/apt/lists/*
 
-# Download and extract tracker-server.jar from Traccar .run installer (v6.5)
-RUN wget -O traccar.run https://github.com/traccar/traccar/releases/download/v6.5/traccar-linux-64-6.5.run && \
-    chmod +x traccar.run && \
-    ./traccar.run --target /opt/traccar --noexec && \
-    mv /opt/traccar/traccar-*/tracker-server.jar /opt/traccar/tracker-server.jar && \
+# Download and extract tracker-server.jar from Traccar .zip installer (v6.7.3)
+RUN wget -O traccar.zip https://github.com/traccar/traccar/releases/download/v6.7.3/traccar-linux-64-6.7.3.zip && \
+    unzip traccar.zip -d /opt && \
+    mv /opt/traccar-*/tracker-server.jar /opt/traccar/tracker-server.jar && \
     test -f /opt/traccar/tracker-server.jar || (echo "❌ tracker-server.jar not found!" && exit 1)
 
 # Create runtime directories and set permissions
