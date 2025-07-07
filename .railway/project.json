@@ -1,5 +1,5 @@
 {
   "build": {
-    "dockerfilePath": "Dockerfile.v673"
+    "dockerfilePath": "Dockerfile.clean"
   }
 }
