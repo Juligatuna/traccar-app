@@ -5,13 +5,11 @@ RUN wget -O traccar.zip https://github.com/traccar/traccar/releases/download/v6.
     unzip -o traccar.zip -d /opt/traccar && \
     echo "Listing ZIP contents:" && \
     find /opt/traccar -type f && \
-    find /opt/traccar -type f -name "traccar.run" -exec mv {} /opt/traccar/tracker-server.jar \; || true && \
-    test -f /opt/traccar/tracker-server.jar || { echo "Error: tracker-server.jar not found"; exit 1; } && \
-    rm -rf traccar.zip /opt/traccar/traccar-*
+    mv /opt/traccar/traccar.run /opt/traccar/traccar.run && \
+    chmod +x /opt/traccar/traccar.run
 RUN mkdir -p /opt/traccar/conf /opt/traccar/logs /opt/traccar/data && \
     chmod -R 755 /opt/traccar/logs /opt/traccar/data
 COPY conf/traccar.xml /opt/traccar/conf/traccar.xml
-RUN chmod 644 /opt/traccar/conf/traccar.xml && \
-    chmod +x /opt/traccar/tracker-server.jar
+RUN chmod 644 /opt/traccar/conf/traccar.xml
 EXPOSE 8082
-CMD ["java", "-Xms512m", "-Xmx768m", "-XX:MaxDirectMemorySize=256m", "-XX:+UseG1GC", "-Djava.net.preferIPv4Stack=true", "-Dtraccar.web.address=0.0.0.0", "-Dtraccar.web.port=8082", "-jar", "/opt/traccar/tracker-server.jar", "conf/traccar.xml"]
+CMD ["/opt/traccar/traccar.run", "conf/traccar.xml"]
