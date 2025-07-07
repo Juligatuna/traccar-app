@@ -12,4 +12,4 @@ RUN mkdir -p /opt/traccar/conf /opt/traccar/logs /opt/traccar/data && \
 COPY conf/traccar.xml /opt/traccar/conf/traccar.xml
 RUN chmod 644 /opt/traccar/conf/traccar.xml
 EXPOSE 8082
-CMD ["/opt/traccar/traccar.run", "conf/traccar.xml"]
+CMD ["sh", "-c", "/opt/traccar/traccar.run conf/traccar.xml"]
