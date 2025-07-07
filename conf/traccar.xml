@@ -4,8 +4,8 @@
     <entry key='config.default'>./conf/default.xml</entry>
     <entry key='web.port'>8082</entry>
     <entry key='logger.level'>INFO</entry>
-    <entry key='database.driver'>com.mysql.cj.jdbc.Driver</entry>
-    <entry key='database.url'>jdbc:mysql://${{MYSQLHOST}}/${{MYSQLDATABASE}}?zeroDateTimeBehavior=round&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false&allowMultiQueries=true&autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&sessionVariables=sql_mode=''</entry>
-    <entry key='database.user'>${{MYSQLUSER}}</entry>
-    <entry key='database.password'>${{MYSQLPASSWORD}}</entry>
+    <entry key='database.driver'>org.postgresql.Driver</entry>
+    <entry key='database.url'>jdbc:postgresql://${{DATABASEHOST}}/${{DATABASENAME}}?sslmode=disable</entry>
+    <entry key='database.user'>${{DATABASEUSER}}</entry>
+    <entry key='database.password'>${{DATABASEPASSWORD}}</entry>
 </properties>
