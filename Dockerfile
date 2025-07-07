@@ -4,8 +4,9 @@ WORKDIR /opt/traccar
 # Install system dependencies
 RUN apt-get update && apt-get install -y wget unzip && rm -rf /var/lib/apt/lists/*
 
-# Download and extract tracker-server.jar from Traccar .run installer (v6.5)
-RUN wget -O traccar.run https://github.com/traccar/traccar/releases/download/v6.5/traccar-linux-64-6.5.run && \
+# 🚨 Bust the cache: update marker
+RUN echo "Cache bust: July 7, 2025" && \
+    wget -O traccar.run https://github.com/traccar/traccar/releases/download/v6.5/traccar-linux-64-6.5.run && \
     chmod +x traccar.run && \
     ./traccar.run --target /opt/traccar --noexec && \
     mv /opt/traccar/traccar-*/tracker-server.jar /opt/traccar/tracker-server.jar && \
