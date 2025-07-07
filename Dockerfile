@@ -1,6 +1,7 @@
 FROM openjdk:17-jdk-slim
 WORKDIR /opt/traccar
 
+# Force rebuild: July 7
 # Install system dependencies
 RUN apt-get update && apt-get install -y wget unzip && rm -rf /var/lib/apt/lists/*
 
