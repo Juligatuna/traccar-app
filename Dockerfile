@@ -5,7 +5,6 @@ RUN wget -O traccar.zip https://github.com/traccar/traccar/releases/download/v6.
     unzip -o traccar.zip -d /opt/traccar && \
     echo "Listing ZIP contents:" && \
     find /opt/traccar -type f && \
-    mv /opt/traccar/traccar.run /opt/traccar/traccar.run && \
     chmod +x /opt/traccar/traccar.run
 RUN mkdir -p /opt/traccar/conf /opt/traccar/logs /opt/traccar/data && \
     chmod -R 755 /opt/traccar/logs /opt/traccar/data
