@@ -1,6 +1,9 @@
 FROM openjdk:17-jdk-slim
 WORKDIR /opt/traccar
 
+# 🚨 Cache bust to force fresh build
+ENV CACHE_BREAKER=2025-07-07-11-25
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y wget unzip && rm -rf /var/lib/apt/lists/*
 
