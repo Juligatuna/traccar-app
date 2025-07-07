@@ -5,7 +5,7 @@ RUN wget -O traccar.zip https://github.com/traccar/traccar/releases/download/v6.
     unzip -o traccar.zip -d /opt/traccar && \
     echo "Listing ZIP contents:" && \
     find /opt/traccar -type f && \
-    find /opt/traccar -type f -name "*.jar" -exec mv {} /opt/traccar/tracker-server.jar \; || true && \
+    find /opt/traccar -type f -name "traccar.run" -exec mv {} /opt/traccar/tracker-server.jar \; || true && \
     test -f /opt/traccar/tracker-server.jar || { echo "Error: tracker-server.jar not found"; exit 1; } && \
     rm -rf traccar.zip /opt/traccar/traccar-*
 RUN mkdir -p /opt/traccar/conf /opt/traccar/logs /opt/traccar/data && \
