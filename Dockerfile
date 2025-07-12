@@ -1,6 +1,7 @@
 FROM traccar/traccar:6.7
 WORKDIR /opt/traccar
-COPY conf/traccar.xml /opt/traccar/conf/traccar.xml
+COPY conf/traccar.xml /opt/traccar/conf/
 RUN chmod 644 /opt/traccar/conf/traccar.xml
 EXPOSE 8082
-CMD java -Xms512m -Xmx768m -XX:MaxDirectMemorySize=256m -XX:+UseG1GC -Djava.net.preferIPv4Stack=true -Dtraccar.web.address=0.0.0.0 -Dtraccar.web.port=8082 -jar tracker-server.jar conf/traccar.xml
+ENTRYPOINT ["java"]
+CMD ["-Xms512m", "-Xmx768m", "-jar", "tracker-server.jar", "conf/traccar.xml"]
