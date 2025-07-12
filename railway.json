@@ -1,10 +1,6 @@
 {
   "deploy": {
-    "ports": [
-      {
-        "port": 8082,
-        "protocol": "TCP"
-      }
-    ]
+    "ports": [{"port": 8082, "protocol": "TCP"}],
+    "startCommand": ""
   }
 }
