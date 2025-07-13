@@ -1,11 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE properties SYSTEM 'http://java.sun.com/dtd/properties.dtd'>
 <properties>
-    <entry key='config.default'>./conf/default.xml</entry>
-    <entry key='web.port'>8082</entry>
-    <entry key='logger.level'>INFO</entry>
     <entry key='database.driver'>com.mysql.cj.jdbc.Driver</entry>
-    <entry key='database.url'>jdbc:mysql://${{MYSQLHOST}}/${{MYSQLDATABASE}}?useSSL=false</entry>
-    <entry key='database.user'>${{MYSQLUSER}}</entry>
-    <entry key='database.password'>${{MYSQLPASSWORD}}</entry>
+    <entry key='database.url'>jdbc:mysql://yamanote.proxy.rlwy.net:59410/railway?useSSL=false</entry>
+    <entry key='database.user'>root</entry>
+    <entry key='database.password'>OTDJYhOEwQdAvMQMNIUlHwsaKlblKKJM</entry>
+    <entry key='web.port'>8082</entry>
+    <entry key='web.address'>0.0.0.0</entry>
+    <entry key='database.checkConnection'>false</entry>
+    <entry key='logger.level'>ALL</entry>
 </properties>

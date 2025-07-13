@@ -1,15 +1,22 @@
-FROM traccar/traccar:6.7
+FROM eclipse-temurin:11-jre
 
-# Copy config and startup script
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y wget unzip gettext && \
+    rm -rf /var/lib/apt/lists/*
+
+# Download and install Traccar
 WORKDIR /opt/traccar
-COPY conf/traccar.xml ./conf/
-COPY start.sh ./
-RUN chmod 644 ./conf/traccar.xml && \
-    chmod +x ./start.sh
+RUN wget -q https://github.com/traccar/traccar/releases/download/v6.0/traccar-other-6.0.zip && \
+    unzip traccar-other-6.0.zip && \
+    rm traccar-other-6.0.zip && \
+    find . -mindepth 1 -maxdepth 1 -type d -exec mv {}/* . \; && \
+    wget -q -P lib/ https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.28/mysql-connector-java-8.0.28.jar
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s \
-  CMD curl -f http://localhost:8082 || exit 1
+# Copy configuration
+COPY conf/traccar.xml /opt/traccar/conf/
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-# Use shell script as entrypoint
-ENTRYPOINT ["/bin/sh", "./start.sh"]
+EXPOSE 8082
+ENTRYPOINT ["/entrypoint.sh"]
